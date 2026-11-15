@@ -35,7 +35,7 @@ def VADER_sentiment_score(heading):
     else:
         return 0
 
-news_df = pd.read_csv("news_data.csv")
+news_df = pd.read_csv(r"/fetched_data/news_data.csv")
 
 
 

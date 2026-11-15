@@ -49,33 +49,33 @@ X_test = np.array(X_test).astype(float)
 y_test = np.array(test[sequence_length:]).astype(float)
 
 
-#creating MLP model
+# Creating MLP model
 def model_create():
     tf.random.set_seed(1234)
     model = tf.keras.models.Sequential(
         [
-            tf.keras.Input(shape = (X_train.shape[1])),
-            tf.keras.layers.Dense(units = 50, activation = "relu"),
+            tf.keras.Input(shape=(X_train.shape[1],)),  # Correcting the input shape
+            tf.keras.layers.Dense(units=50, activation="relu"),
             tf.keras.layers.Dropout(0.1),
-            tf.keras.layers.Dense(units = 30, activation = "relu"),
+            tf.keras.layers.Dense(units=30, activation="relu"),
             tf.keras.layers.Dropout(0.05),
-            tf.keras.layers.Dense(units = 20, activation = "relu"),
+            tf.keras.layers.Dense(units=20, activation="relu"),
             tf.keras.layers.Dropout(0.01),
-            tf.keras.layers.Dense(units = 1, activation = "linear")
+            tf.keras.layers.Dense(units=1, activation="linear")
         ]
     )
 
     model.compile(
-        loss = tf.keras.losses.mean_squared_error,
-        optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate),
+        loss=tf.keras.losses.MeanSquaredError(),
+        optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
     )
-
 
     model.fit(
         X_train, y_train,
-        epochs = epochs,
+        epochs=epochs,
     )
     return model
+
 
 
 # inverting normaliztion

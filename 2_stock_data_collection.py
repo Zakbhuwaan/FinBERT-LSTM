@@ -10,4 +10,4 @@ def download_stock_data(ticker, start, end):
     df.to_csv("stock_price.csv")
 
 
-download_stock_data("NDX", "2020-10-01", "2022-09-30")
+download_stock_data("NDX", "2022-07-01", "2022-09-30")

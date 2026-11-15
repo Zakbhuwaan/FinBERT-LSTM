@@ -1,0 +1,5 @@
+.env/
+*.zip
+__pycache__/
+Indian-FINBERT-LSTM - Copy/
+hyperband_tuning/**/checkpoint.weights.h5

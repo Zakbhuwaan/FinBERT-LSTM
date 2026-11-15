@@ -66,7 +66,7 @@ def model_create():
     )
 
     model.compile(
-        loss = tf.keras.losses.mean_squared_error,
+        loss = tf.keras.losses.MeanSquaredError,
         optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate)
     )
 

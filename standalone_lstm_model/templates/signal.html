@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Trading Signal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .signal-container {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .signal-card {
+            animation: scaleIn 0.5s ease-in-out;
+        }
+        .price-info {
+            animation: slideIn 0.7s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center">
+    <div class="container mx-auto p-6 signal-container">
+        <!-- Add Ticker to the heading -->
+        <h1 class="text-4xl font-bold text-center text-blue-400 mb-8">
+            Stock Trading Signal for {{ ticker | upper }} <!-- Display Ticker -->
+        </h1>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Signal Card -->
+            <div class="signal-card bg-gray-800/90 rounded-xl shadow-lg overflow-hidden">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold mb-4">Current Recommendation</h2>
+                    
+                    {% if signal_class == 'buy' %}
+                    <div class="py-8 px-4 bg-green-900/50 rounded-lg text-center">
+                        <span class="text-6xl font-bold text-green-400">BUY</span>
+                        <div class="mt-4 text-green-300">Expected increase: {{ "%.2f"|format(percent_change) }}%</div>
+                    </div>
+                    {% elif signal_class == 'sell' %}
+                    <div class="py-8 px-4 bg-red-900/50 rounded-lg text-center">
+                        <span class="text-6xl font-bold text-red-400">SELL</span>
+                        <div class="mt-4 text-red-300">Expected decrease: {{ "%.2f"|format(percent_change|abs) }}%</div>
+                    </div>
+                    {% else %}
+                    <div class="py-8 px-4 bg-blue-900/50 rounded-lg text-center">
+                        <span class="text-6xl font-bold text-blue-400">HOLD</span>
+                        <div class="mt-4 text-blue-300">Expected change: {{ "%.2f"|format(percent_change) }}%</div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="mt-6 price-info">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-gray-700/70 rounded-lg">
+                                <div class="text-gray-400 text-sm">Current Price</div>
+                                <div class="text-2xl font-semibold">₹{{ "%.2f"|format(current_price) }}</div>
+                            </div>
+                            <div class="p-4 bg-gray-700/70 rounded-lg">
+                                <div class="text-gray-400 text-sm">Predicted Price</div>
+                                <div class="text-2xl font-semibold">₹{{ "%.2f"|format(predicted_price) }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-4 bg-gray-700">
+                    <button onclick="window.location.reload()" class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition">
+                        Refresh Prediction
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Chart -->
+            <div class="bg-gray-800/90 rounded-xl shadow-lg overflow-hidden">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold mb-4">Price Prediction</h2>
+                    <img src="data:image/png;base64,{{ plot_url }}" alt="Price Prediction Chart" class="w-full rounded-lg">
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-6 text-center">
+            <a href="/" class="text-blue-400 hover:text-blue-300">← Analyze Another Stock</a>
+        </div>
+    </div>
+</body>
+</html>

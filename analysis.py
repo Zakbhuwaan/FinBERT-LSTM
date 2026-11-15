@@ -33,7 +33,7 @@ plt.plot(mlp_preds, color = "green")
 plt.plot(lstm_preds, color = "orange")
 plt.plot(bert_preds, color = "red")
 
-plt.xlabel("Timestep", fontsize = 10, labelpad = 10)
+plt.xlabel("Timestamp", fontsize = 10, labelpad = 10)
 plt.xticks(fontsize = 15)
 plt.ylabel("Closing price in USD", fontsize = 10, labelpad = 20)
 plt.title("NDX Closing price", fontsize = 20, pad = 20)

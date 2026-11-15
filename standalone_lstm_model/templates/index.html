@@ -1,0 +1,104 @@
+<!-- filepath: c:\MY FILES\Tinkering\Domains\Sentiment Analysis\FinBERT-LSTM-RBL\standalone_lstm_model\templates\index.html -->
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Sentiment Analysis</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Enable dark mode based on user preference or localStorage
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        /* Custom background */
+        body {
+            /* Optional: Add background image or keep default dark/light */
+            /* background-image: url('your-image-url.jpg'); */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        /* Simple fade-in */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .container { animation: fadeIn 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-gray-200 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto p-6 bg-white/90 dark:bg-gray-800/90 shadow-xl rounded-lg max-w-2xl">
+        <h1 class="text-3xl font-bold text-center text-blue-600 dark:text-blue-400 mb-8">Stock Sentiment Analysis</h1>
+
+        <!-- Section: Analyze Stock -->
+        <div class="mb-6">
+            <div class="bg-green-500 dark:bg-green-600 text-white p-4 rounded-t-lg">
+                <h2 class="text-lg font-semibold">Analyze Stock</h2>
+            </div>
+            <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-b-lg">
+                <!-- Changed form ID and action -->
+                <form id="analyzeForm" action="/analyze" method="POST">
+                    <div class="mb-4">
+                        <label for="ticker" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Stock Ticker:</label>
+                        <input type="text" id="ticker" name="ticker" placeholder="e.g., AAPL, MSFT" class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="query" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">News Query (Optional):</label>
+                        <input type="text" id="query" name="query" placeholder="Leave blank to use ticker" class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="fromDate" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">From Date:</label>
+                            <input type="date" id="fromDate" name="fromDate" class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200" required>
+                        </div>
+                        <div>
+                            <label for="toDate" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">To Date:</label>
+                            <input type="date" id="toDate" name="toDate" class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200" required>
+                        </div>
+                    </div>
+                    <!-- Changed button text -->
+                    <button type="submit" class="w-full bg-green-500 dark:bg-green-600 text-white py-2.5 rounded-lg hover:bg-green-600 dark:hover:bg-green-700 transition text-lg font-semibold">Analyze Stock</button>
+                </form>
+                <!-- Removed newsResponse div, results will be on the signal page -->
+                 <div id="loadingMessage" class="mt-4 hidden text-center text-blue-400">Analyzing... Please wait.</div>
+            </div>
+        </div>
+
+         <!-- Optional: Add a button/link to toggle dark mode -->
+         <div class="text-center mt-4">
+             <button onclick="toggleDarkMode()" class="text-sm text-gray-500 dark:text-gray-400 hover:underline">Toggle Dark Mode</button>
+         </div>
+    </div>
+
+    <script>
+        // Handle Form Submission - Show loading message
+        document.getElementById('analyzeForm').onsubmit = function() {
+            document.getElementById('loadingMessage').classList.remove('hidden');
+        };
+
+        // Dark Mode Toggle Function
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        // Set initial date values (e.g., last 30 days)
+        const today = new Date();
+        const thirtyDaysAgo = new Date(new Date().setDate(today.getDate() - 30));
+        document.getElementById('toDate').valueAsDate = today;
+        document.getElementById('fromDate').valueAsDate = thirtyDaysAgo;
+
+    </script>
+</body>
+</html>

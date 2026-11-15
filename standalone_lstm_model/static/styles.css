@@ -1,0 +1,128 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Center the main container */
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Header Styles */
+h1 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+/* Form Styles */
+form {
+    margin-bottom: 20px;
+}
+
+form label {
+    font-weight: bold;
+    color: #333;
+}
+
+form input, form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Response and Plot Styles */
+.alert {
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.alert-info {
+    background-color: #e7f3fe;
+    color: #31708f;
+    border: 1px solid #bce8f1;
+}
+
+#plot img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Card Styles */
+.card {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+/* Header Colors */
+.card-header.bg-primary {
+    background-color: #007bff;
+}
+
+.card-header.bg-success {
+    background-color: #28a745;
+}
+
+.card-header.bg-info {
+    background-color: #17a2b8;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
